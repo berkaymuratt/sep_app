@@ -1,4 +1,4 @@
-# sep_app
+# SEP_app
 
 A new Flutter project.
 
