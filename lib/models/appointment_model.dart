@@ -1,31 +1,30 @@
-import 'package:sep_app/models/users/doctor_model.dart';
-import 'package:sep_app/models/users/patient_model.dart';
+import 'package:sep_app/models/user_info_model.dart';
 
 class AppointmentModel {
   String id;
-  DoctorModel doctor;
-  PatientModel patient;
+  UserInfoModel doctorInfo;
+  UserInfoModel patientInfo;
   String date;
 
   AppointmentModel({
     required this.id,
-    required this.doctor,
-    required this.patient,
+    required this.doctorInfo,
+    required this.patientInfo,
     required this.date,
   });
 
   factory AppointmentModel.fromJSON(Map<String, dynamic> json) =>
       AppointmentModel(
         id: json['id'],
-        doctor: DoctorModel.fromJSON(json['doctor']),
-        patient: PatientModel.fromJSON(json['patient']),
+        doctorInfo: UserInfoModel.fromJSON(json['doctor_info']),
+        patientInfo: UserInfoModel.fromJSON(json['patient_info']),
         date: json['date'],
       );
 
   Map<String, dynamic> toJSON() => {
         "id": id,
-        "doctor": doctor.toJSON(),
-        "patient": patient.toJSON(),
+        "doctor_info": doctorInfo.toJSON(),
+        "patient_info": patientInfo.toJSON(),
         "date": date,
       };
 }

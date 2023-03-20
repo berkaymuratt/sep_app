@@ -1,11 +1,10 @@
 import 'package:sep_app/models/appointment_model.dart';
-import 'package:sep_app/models/users/doctor_model.dart';
 import 'package:sep_app/models/report_model.dart';
 import 'package:sep_app/models/user_info_model.dart';
 import 'package:sep_app/models/users/user_model.dart';
 
 class PatientModel extends UserModel {
-  DoctorModel doctor;
+  UserInfoModel doctorInfo;
 
   PatientModel({
     required super.id,
@@ -13,7 +12,7 @@ class PatientModel extends UserModel {
     required super.userInfo,
     required super.reports,
     required super.appointments,
-    required this.doctor,
+    required this.doctorInfo,
   });
 
   factory PatientModel.fromJSON(Map<String, dynamic> json) {
@@ -37,7 +36,7 @@ class PatientModel extends UserModel {
       userInfo: UserInfoModel.fromJSON(json['user_info']),
       reports: reportsList,
       appointments: appointmentsList,
-      doctor: DoctorModel.fromJSON(json['doctor']),
+      doctorInfo: UserInfoModel.fromJSON(json['doctor_info']),
     );
   }
 
@@ -60,7 +59,7 @@ class PatientModel extends UserModel {
       "id": id,
       "user_id": userId,
       "user_info": userInfo.toJSON(),
-      "doctor": doctor.toJSON(),
+      "doctor_info": doctorInfo.toJSON(),
       "reports": reportsJSON,
       "appointments": appointmentsJSON,
     };
