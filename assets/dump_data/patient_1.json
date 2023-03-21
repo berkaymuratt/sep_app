@@ -1,0 +1,90 @@
+{
+  "id": "1234acbd",
+  "user_id": "99123412387",
+  "user_info": {
+    "name": "Enner",
+    "surname": "Valencia",
+    "age": 30,
+    "telephone": "0532123434",
+    "address": "123. Sokak ASD/FaS"
+  },
+  "doctor_info": {
+    "name": "Alex",
+    "surname": "De Souza",
+    "age": 40,
+    "telephone": "05071234567",
+    "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+  },
+  "reports": [
+    {
+      "id": "45677",
+      "patient_info": {
+        "name": "Enner",
+        "surname": "Valencia",
+        "age": 30,
+        "telephone": "0532123434",
+        "address": "123. Sokak ASD/FaS"
+      },
+      "doctor_info": {
+        "name": "Alex",
+        "surname": "De Souza",
+        "age": 40,
+        "telephone": "05071234567",
+        "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+      },
+      "symptoms": [
+        {
+          "id": "dfmsm435k",
+          "name": "Yüksek Ateş",
+          "body_part": {
+            "id": "1asd",
+            "name": "Tüm Vücut"
+          },
+          "pain_intensity": 7
+        }
+      ],
+      "doctor_feedback": {
+        "content": "This is a feedback..",
+        "date": "2022-01-01 12:00 PM"
+      },
+      "possible_diseases": [
+        {
+          "id": "asdfgh1234",
+          "symptoms": [
+            {
+              "id": "dfmsm435k",
+              "name": "Öksürük",
+              "body_part": {
+                "id": "1asd",
+                "name": "Boğaz"
+              },
+              "pain_intensity": 7
+            }
+          ],
+          "name": "Soğuk Algınlığı",
+          "details": "Üşütme sonucu ortaya çıkan hastalık"
+        }
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "id": "0A34093B153",
+      "doctor_info": {
+        "name": "Alex",
+        "surname": "De Souza",
+        "age": 40,
+        "telephone": "05071234567",
+        "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+      },
+      "patient_info": {
+        "name": "Enner",
+        "surname": "Valencia",
+        "age": 30,
+        "telephone": "0532123434",
+        "address": "123. Sokak ASD/FaS"
+      },
+      "date": "2022-07-07 13:30 PM"
+    }
+  ]
+}
