@@ -1,8 +1,6 @@
 import 'package:sep_app/models/disease_model.dart';
 import 'package:sep_app/models/doctor_feedback_model.dart';
 import 'package:sep_app/models/users/user_info_model.dart';
-import 'package:sep_app/models/users/doctor_model.dart';
-import 'package:sep_app/models/users/patient_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 
 class ReportModel {
@@ -31,7 +29,7 @@ class ReportModel {
 
     List<DiseaseModel> diseasesList = [];
 
-    for (var diseaseJSON in json['diseases']) {
+    for (var diseaseJSON in json['possible_diseases']) {
       diseasesList.add(DiseaseModel.fromJSON(diseaseJSON));
     }
 
