@@ -1,11 +1,11 @@
 import 'package:sep_app/models/appointment_model.dart';
 import 'package:sep_app/models/users/patient_model.dart';
 import 'package:sep_app/models/report_model.dart';
-import 'package:sep_app/models/user_info_model.dart';
+import 'package:sep_app/models/users/user_info_model.dart';
 import 'package:sep_app/models/users/user_model.dart';
 
 class DoctorModel extends UserModel {
-  List<PatientModel> patients;
+  List<UserInfoModel> patientsInfo;
 
   DoctorModel({
     required super.id,
@@ -13,7 +13,7 @@ class DoctorModel extends UserModel {
     required super.userInfo,
     required super.reports,
     required super.appointments,
-    required this.patients,
+    required this.patientsInfo,
   });
 
   factory DoctorModel.fromJSON(Map<String, dynamic> json) {
@@ -32,10 +32,10 @@ class DoctorModel extends UserModel {
     }
 
     // Convert json patients to patients
-    List<PatientModel> patientsList = [];
+    List<UserInfoModel> patientsList = [];
 
-    for (Map<String, dynamic> patientJSON in json['patients']) {
-      patientsList.add(PatientModel.fromJSON(patientJSON));
+    for (Map<String, dynamic> patientJSON in json['patients_info']) {
+      patientsList.add(UserInfoModel.fromJSON(patientJSON));
     }
 
     return DoctorModel(
@@ -44,7 +44,7 @@ class DoctorModel extends UserModel {
       userInfo: UserInfoModel.fromJSON(json['user_info']),
       reports: reportsList,
       appointments: appointmentsList,
-      patients: patientsList,
+      patientsInfo: patientsList,
     );
   }
 
@@ -64,10 +64,10 @@ class DoctorModel extends UserModel {
     }
 
     // Convert patients list to json list
-    List<Map<String, dynamic>> patientsJSON = [];
+    List<Map<String, dynamic>> patientsInfoJSON = [];
 
-    for (PatientModel patient in patients) {
-      patientsJSON.add(patient.toJSON());
+    for (UserInfoModel patientInfo in patientsInfo) {
+      patientsInfoJSON.add(patientInfo.toJSON());
     }
 
     return {
@@ -76,7 +76,7 @@ class DoctorModel extends UserModel {
       "user_info": userInfo.toJSON(),
       "reports": reportsJSON,
       "appointments": appointmentsJSON,
-      "patients": patientsJSON,
+      "patients_info": patientsInfoJSON,
     };
   }
 }

@@ -1,6 +1,6 @@
 import 'package:sep_app/models/appointment_model.dart';
 import 'package:sep_app/models/report_model.dart';
-import 'package:sep_app/models/user_info_model.dart';
+import 'package:sep_app/models/users/user_info_model.dart';
 import 'package:sep_app/models/users/user_model.dart';
 
 class PatientModel extends UserModel {
@@ -52,7 +52,7 @@ class PatientModel extends UserModel {
     List<Map<String, dynamic>> appointmentsJSON = [];
 
     for (AppointmentModel appointment in appointments) {
-      reportsJSON.add(appointment.toJSON());
+      appointmentsJSON.add(appointment.toJSON());
     }
 
     return {
