@@ -1,4 +1,4 @@
-import 'package:sep_app/models/user_info_model.dart';
+import 'package:sep_app/models/users/user_info_model.dart';
 
 class AppointmentModel {
   String id;
