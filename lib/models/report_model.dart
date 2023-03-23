@@ -1,13 +1,15 @@
 import 'package:sep_app/models/disease_model.dart';
 import 'package:sep_app/models/doctor_feedback_model.dart';
-import 'package:sep_app/models/users/user_info_model.dart';
+import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
+import 'package:sep_app/models/users/user_info/patient_info_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 
 class ReportModel {
   String id;
-  UserInfoModel patientInfo;
-  UserInfoModel doctorInfo;
+  PatientInfoModel patientInfo;
+  DoctorInfoModel doctorInfo;
   List<SymptomModel> symptoms;
+  String patientNote;
   DoctorFeedbackModel doctorFeedback;
   List<DiseaseModel> possibleDiseases;
 
@@ -16,6 +18,7 @@ class ReportModel {
     required this.patientInfo,
     required this.doctorInfo,
     required this.symptoms,
+    required this.patientNote,
     required this.doctorFeedback,
     required this.possibleDiseases,
   });
@@ -35,9 +38,10 @@ class ReportModel {
 
     return ReportModel(
       id: json['id'],
-      patientInfo: UserInfoModel.fromJSON(json['patient_info']),
-      doctorInfo: UserInfoModel.fromJSON(json['doctor_info']),
+      patientInfo: PatientInfoModel.fromJSON(json['patient_info']),
+      doctorInfo: DoctorInfoModel.fromJSON(json['doctor_info']),
       symptoms: symptomsList,
+      patientNote: json['patient_note'],
       doctorFeedback: DoctorFeedbackModel.fromJSON(json['doctor_feedback']),
       possibleDiseases: diseasesList,
     );
@@ -61,6 +65,7 @@ class ReportModel {
       "patient_info": patientInfo.toJSON(),
       "doctor_info": doctorInfo.toJSON(),
       "symptoms": symptomsJSON,
+      "patient_note": patientNote,
       "doctor_feedback": doctorFeedback.toJSON(),
       "possible_diseases": diseasesJSON,
     };

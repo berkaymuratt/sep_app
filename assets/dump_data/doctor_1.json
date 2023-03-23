@@ -1,92 +1,111 @@
 {
-  "id": "4321acbd",
+  "id": "KSL1235SSDF",
   "user_id": "12345678900",
-  "user_info": {
+  "doctor_info": {
     "name": "Alex",
     "surname": "De Souza",
-    "age": 40,
-    "telephone": "05071234567",
-    "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+    "telephone": "0 542 123 45 67",
+    "address": "yyy. Sokak, Balçova/İZMİR"
   },
+  "patients_info": [
+    {
+      "name": "Enner",
+      "surname": "Valencia",
+      "telephone": "0 532 123 45 67",
+      "address": "xxx. Sokak, Balçova/İZMİR",
+      "doctor_id": "KSL1235SSDF",
+      "age": 33,
+      "height": 175,
+      "weight": 80
+    }
+  ],
   "reports": [
     {
-      "id": "45677",
+      "id": "425FHDSF89",
       "patient_info": {
         "name": "Enner",
         "surname": "Valencia",
-        "age": 30,
-        "telephone": "0532123434",
-        "address": "123. Sokak ASD/FaS"
+        "telephone": "0 532 123 45 67",
+        "address": "xxx. Sokak, Balçova/İZMİR",
+        "doctor_id": "KSL1235SSDF",
+        "age": 33,
+        "height": 175,
+        "weight": 80
       },
       "doctor_info": {
         "name": "Alex",
         "surname": "De Souza",
-        "age": 40,
-        "telephone": "05071234567",
-        "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+        "telephone": "0 542 123 45 67",
+        "address": "yyy. Sokak, Balçova/İZMİR"
       },
       "symptoms": [
         {
-          "id": "dfmsm435k",
-          "name": "Yüksek Ateş",
+          "id": "857ASD52GH",
+          "name": "Baş Ağrısı",
           "body_part": {
-            "id": "1asd",
-            "name": "Tüm Vücut"
+            "id": "123ABC",
+            "name": "Baş"
           },
-          "pain_intensity": 7
+          "pain_intensity": 8
         }
       ],
+      "patient_note": "This is the patient note",
       "doctor_feedback": {
-        "content": "This is a feedback..",
-        "date": "2022-01-01 12:00 PM"
+        "content": "This is the doctor feedback",
+        "date": "2022-01-01 10:00 PM"
       },
       "possible_diseases": [
         {
-          "id": "asdfgh1234",
+          "id": "C1534SCV132X",
           "symptoms": [
             {
-              "id": "dfmsm435k",
-              "name": "Yüksek Ateş",
+              "id": "857ASD52GH",
+              "name": "Baş Ağrısı",
               "body_part": {
-                "id": "1asd",
-                "name": "Tüm Vücut"
+                "id": "123ABC",
+                "name": "Baş"
               },
-              "pain_intensity": 7
+              "pain_intensity": 8
             }
           ],
-          "name": "Soğuk Algınlığı",
-          "details": "Üşütme sonucu ortaya çıkan hastalık"
+          "name": "Strese Dayalı Baş Ağrısı",
+          "details": "Günlük hayatta stresten kaynaklı baş bölgesinde meydana gelen ağrı"
         }
       ]
     }
   ],
   "appointments": [
     {
-      "id": "0A34093B153",
+      "id": "98234SGHHFJB",
       "doctor_info": {
         "name": "Alex",
         "surname": "De Souza",
-        "age": 40,
-        "telephone": "05071234567",
-        "address": "Sao Paulo Mah. Kadıköy/İstanbul"
+        "telephone": "0 542 123 45 67",
+        "address": "yyy. Sokak, Balçova/İZMİR"
       },
       "patient_info": {
         "name": "Enner",
         "surname": "Valencia",
-        "age": 30,
-        "telephone": "0532123434",
-        "address": "123. Sokak ASD/FaS"
+        "telephone": "0 532 123 45 67",
+        "address": "xxx. Sokak, Balçova/İZMİR",
+        "doctor_id": "KSL1235SSDF",
+        "age": 33,
+        "height": 175,
+        "weight": 80
       },
-      "date": "2022-07-07 13:30 PM"
-    }
-  ],
-  "patients_info": [
-    {
-      "name": "Enner",
-      "surname": "Valencia",
-      "age": 30,
-      "telephone": "0532123434",
-      "address": "123. Sokak ASD/FaS"
+      "date": "2022-01-01 10:00 PM",
+      "symptoms": [
+        {
+          "id": "857ASD52GH",
+          "name": "Baş Ağrısı",
+          "body_part": {
+            "id": "123ABC",
+            "name": "Baş"
+          },
+          "pain_intensity": 8
+        }
+      ],
+      "patient_note": "This is the patient note"
     }
   ]
 }
