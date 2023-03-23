@@ -1,4 +1,4 @@
-class UserInfoModel {
+abstract class UserInfoModel {
   String name;
   String surname;
   String telephone;
@@ -10,13 +10,6 @@ class UserInfoModel {
     required this.telephone,
     required this.address,
   });
-
-  factory UserInfoModel.fromJSON(Map<String, dynamic> json) => UserInfoModel(
-        name: json['name'],
-        surname: json['surname'],
-        telephone: json['telephone'],
-        address: json['address'],
-      );
 
   Map<String, dynamic> toJSON() => {
         "name": name,

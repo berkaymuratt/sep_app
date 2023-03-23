@@ -1,31 +1,58 @@
-import 'package:sep_app/models/users/doctor_model.dart';
-import 'package:sep_app/models/users/patient_model.dart';
+import 'package:sep_app/models/symptom_model.dart';
+import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
+import 'package:sep_app/models/users/user_info/patient_info_model.dart';
 
 class AppointmentModel {
   String id;
-  DoctorModel doctor;
-  PatientModel patient;
+  DoctorInfoModel doctorInfo;
+  PatientInfoModel patientInfo;
   String date;
+  List<SymptomModel> symptoms = [];
+  String patientNote;
 
   AppointmentModel({
     required this.id,
-    required this.doctor,
-    required this.patient,
+    required this.doctorInfo,
+    required this.patientInfo,
     required this.date,
+    required this.symptoms,
+    required this.patientNote,
   });
 
-  factory AppointmentModel.fromJSON(Map<String, dynamic> json) =>
-      AppointmentModel(
-        id: json['id'],
-        doctor: DoctorModel.fromJSON(json['doctor']),
-        patient: PatientModel.fromJSON(json['patient']),
-        date: json['date'],
-      );
+  factory AppointmentModel.fromJSON(Map<String, dynamic> json) {
 
-  Map<String, dynamic> toJSON() => {
-        "id": id,
-        "doctor": doctor.toJSON(),
-        "patient": patient.toJSON(),
-        "date": date,
-      };
+    final List<SymptomModel> symptomsList = [];
+
+    for (Map<String, dynamic> symptomJSON in json['symptoms']) {
+      symptomsList.add(SymptomModel.fromJSON(symptomJSON));
+    }
+
+    return AppointmentModel(
+      id: json['id'],
+      doctorInfo: DoctorInfoModel.fromJSON(json['doctor_info']),
+      patientInfo: PatientInfoModel.fromJSON(json['patient_info']),
+      date: json['date'],
+      symptoms: symptomsList,
+      patientNote: json['patient_note'],
+    );
+  }
+
+
+  Map<String, dynamic> toJSON() {
+
+    List<Map<String, dynamic>> symptomsJSON = [];
+
+    for (SymptomModel symptom in symptoms) {
+      symptomsJSON.add(symptom.toJSON());
+    }
+
+    return {
+      "id": id,
+      "doctor_info": doctorInfo.toJSON(),
+      "patient_info": patientInfo.toJSON(),
+      "date": date,
+      "symptoms": symptomsJSON,
+      "patient_note": patientNote
+    };
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sep_app/app/pages/login_page/login_page.dart';
+import 'package:sep_app/locator.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
