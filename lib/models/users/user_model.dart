@@ -10,7 +10,7 @@ abstract class UserModel {
   UserModel({
     required this.id,
     required this.userId,
-    required this.reports,
-    required this.appointments,
+    this.reports = const [],
+    this.appointments = const [],
   });
 }
