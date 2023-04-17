@@ -4,26 +4,26 @@ class SymptomModel {
   String id;
   String name;
   BodyPartModel bodyPart;
-  int painIntensity;
+  int level;
 
   SymptomModel({
     required this.id,
     required this.name,
     required this.bodyPart,
-    required this.painIntensity,
+    required this.level,
   });
 
   factory SymptomModel.fromJSON(Map<String, dynamic> json) => SymptomModel(
         id: json['id'],
         name: json['name'],
         bodyPart: BodyPartModel.fromJSON(json['body_part']),
-        painIntensity: json['pain_intensity'],
+        level: json['level'],
       );
 
   Map<String, dynamic> toJSON() => {
         "id": id,
         "name": name,
         "body_part": bodyPart.toJSON(),
-        "pain_intensity": painIntensity,
+        "level": level,
       };
 }

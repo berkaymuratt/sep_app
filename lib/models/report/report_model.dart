@@ -1,11 +1,13 @@
 import 'package:sep_app/models/disease_model.dart';
-import 'package:sep_app/models/doctor_feedback_model.dart';
+import 'package:sep_app/models/report/doctor_feedback_model.dart';
 import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
 import 'package:sep_app/models/users/user_info/patient_info_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 
 class ReportModel {
   String id;
+  String patientId;
+  String doctorId;
   PatientInfoModel patientInfo;
   DoctorInfoModel doctorInfo;
   List<SymptomModel> symptoms;
@@ -15,6 +17,8 @@ class ReportModel {
 
   ReportModel({
     required this.id,
+    required this.patientId,
+    required this.doctorId,
     required this.patientInfo,
     required this.doctorInfo,
     required this.symptoms,
@@ -38,6 +42,8 @@ class ReportModel {
 
     return ReportModel(
       id: json['id'],
+      patientId: json['patient_id'],
+      doctorId: json['doctor_id'],
       patientInfo: PatientInfoModel.fromJSON(json['patient_info']),
       doctorInfo: DoctorInfoModel.fromJSON(json['doctor_info']),
       symptoms: symptomsList,
@@ -62,6 +68,8 @@ class ReportModel {
 
     return {
       "id": id,
+      "patient_id": patientId,
+      "doctor_id": doctorId,
       "patient_info": patientInfo.toJSON(),
       "doctor_info": doctorInfo.toJSON(),
       "symptoms": symptomsJSON,

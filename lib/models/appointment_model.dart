@@ -1,3 +1,4 @@
+import 'package:sep_app/models/report/report_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
 import 'package:sep_app/models/users/user_info/patient_info_model.dart';
@@ -7,7 +8,8 @@ class AppointmentModel {
   DoctorInfoModel doctorInfo;
   PatientInfoModel patientInfo;
   String date;
-  List<SymptomModel> symptoms = [];
+  ReportModel? report;
+  List<SymptomModel>? symptoms = [];
   String patientNote;
 
   AppointmentModel({
@@ -40,19 +42,28 @@ class AppointmentModel {
 
   Map<String, dynamic> toJSON() {
 
-    List<Map<String, dynamic>> symptomsJSON = [];
-
-    for (SymptomModel symptom in symptoms) {
-      symptomsJSON.add(symptom.toJSON());
-    }
-
-    return {
+    Map<String, dynamic> json = {
       "id": id,
       "doctor_info": doctorInfo.toJSON(),
       "patient_info": patientInfo.toJSON(),
       "date": date,
-      "symptoms": symptomsJSON,
       "patient_note": patientNote
     };
+
+    if (report != null) {
+      json['report'] = report!.toJSON();
+    }
+
+    if (symptoms != null) {
+      List<Map<String, dynamic>> symptomsJson = [];
+
+      for (SymptomModel symptom in symptoms!) {
+        symptomsJson.add(symptom.toJSON());
+      }
+
+      json['symptoms'] = symptomsJson;
+    }
+
+    return json;
   }
 }

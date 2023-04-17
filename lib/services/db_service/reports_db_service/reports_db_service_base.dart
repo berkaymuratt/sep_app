@@ -1,4 +1,4 @@
-import 'package:sep_app/models/report_model.dart';
+import 'package:sep_app/models/report/report_model.dart';
 
 abstract class ReportsDbServiceBase {
   Future<List<ReportModel>> getReportsByPatientId(String patientId);
