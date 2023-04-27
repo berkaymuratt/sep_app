@@ -1,5 +1,5 @@
 import 'package:sep_app/locator.dart';
-import 'package:sep_app/models/report/report_model.dart';
+import 'package:sep_app/models/report_model.dart';
 import 'package:sep_app/services/db_service/reports_db_service/reports_db_service.dart';
 import 'package:sep_app/services/db_service/reports_db_service/reports_db_service_base.dart';
 

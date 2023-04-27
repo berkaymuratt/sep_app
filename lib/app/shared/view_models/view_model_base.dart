@@ -14,7 +14,7 @@ abstract class ViewModelBase extends ChangeNotifier {
 
   String get errorMsg => _errorMsg;
 
-  void setErrorMsg(String errorMsg) {
+  set errorMsg(String errorMsg) {
     _errorMsg = errorMsg;
   }
 
@@ -23,8 +23,6 @@ abstract class ViewModelBase extends ChangeNotifier {
   }
 
   bool get isStateLoading => _state == ViewState.BUSY;
-
-
 }
 
 enum ViewState {

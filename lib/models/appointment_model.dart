@@ -1,22 +1,22 @@
-import 'package:sep_app/models/report/report_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
-import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
-import 'package:sep_app/models/users/user_info/patient_info_model.dart';
+import 'package:sep_app/models/users/doctor_model.dart';
+import 'package:sep_app/models/users/patient_model.dart';
 
 class AppointmentModel {
   String id;
-  DoctorInfoModel doctorInfo;
-  PatientInfoModel patientInfo;
-  String date;
-  ReportModel? report;
+  DoctorModel doctor;
+  PatientModel patient;
+  DateTime date;
+  String reportId;
   List<SymptomModel>? symptoms = [];
   String patientNote;
 
   AppointmentModel({
     required this.id,
-    required this.doctorInfo,
-    required this.patientInfo,
+    required this.doctor,
+    required this.patient,
     required this.date,
+    required this.reportId,
     required this.symptoms,
     required this.patientNote,
   });
@@ -31,10 +31,11 @@ class AppointmentModel {
 
     return AppointmentModel(
       id: json['id'],
-      doctorInfo: DoctorInfoModel.fromJSON(json['doctor_info']),
-      patientInfo: PatientInfoModel.fromJSON(json['patient_info']),
-      date: json['date'],
+      doctor: DoctorModel.fromJSON(json['doctor']),
+      patient: PatientModel.fromJSON(json['patient']),
+      date: DateTime.parse(json['date']),
       symptoms: symptomsList,
+      reportId: json['report_id'],
       patientNote: json['patient_note'],
     );
   }
@@ -44,15 +45,12 @@ class AppointmentModel {
 
     Map<String, dynamic> json = {
       "id": id,
-      "doctor_info": doctorInfo.toJSON(),
-      "patient_info": patientInfo.toJSON(),
-      "date": date,
+      "doctor": doctor.toJSON(),
+      "patient": patient.toJSON(),
+      "date": date.toIso8601String(),
+      "report_id": reportId,
       "patient_note": patientNote
     };
-
-    if (report != null) {
-      json['report'] = report!.toJSON();
-    }
 
     if (symptoms != null) {
       List<Map<String, dynamic>> symptomsJson = [];
