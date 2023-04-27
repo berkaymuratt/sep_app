@@ -1,30 +1,27 @@
 import 'package:sep_app/models/disease_model.dart';
-import 'package:sep_app/models/report/doctor_feedback_model.dart';
-import 'package:sep_app/models/users/user_info/doctor_info_model.dart';
-import 'package:sep_app/models/users/user_info/patient_info_model.dart';
+import 'package:sep_app/models/users/doctor_model.dart';
+import 'package:sep_app/models/users/patient_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 
 class ReportModel {
   String id;
-  String patientId;
-  String doctorId;
-  PatientInfoModel patientInfo;
-  DoctorInfoModel doctorInfo;
+  PatientModel patient;
+  DoctorModel doctor;
   List<SymptomModel> symptoms;
   String patientNote;
-  DoctorFeedbackModel doctorFeedback;
+  String doctorFeedback;
   List<DiseaseModel> possibleDiseases;
+  DateTime createdAt;
 
   ReportModel({
     required this.id,
-    required this.patientId,
-    required this.doctorId,
-    required this.patientInfo,
-    required this.doctorInfo,
+    required this.patient,
+    required this.doctor,
     required this.symptoms,
     required this.patientNote,
     required this.doctorFeedback,
     required this.possibleDiseases,
+    required this.createdAt,
   });
 
   factory ReportModel.fromJSON(Map<String, dynamic> json) {
@@ -42,14 +39,13 @@ class ReportModel {
 
     return ReportModel(
       id: json['id'],
-      patientId: json['patient_id'],
-      doctorId: json['doctor_id'],
-      patientInfo: PatientInfoModel.fromJSON(json['patient_info']),
-      doctorInfo: DoctorInfoModel.fromJSON(json['doctor_info']),
+      patient: PatientModel.fromJSON(json['patient']),
+      doctor: DoctorModel.fromJSON(json['doctor']),
       symptoms: symptomsList,
       patientNote: json['patient_note'],
-      doctorFeedback: DoctorFeedbackModel.fromJSON(json['doctor_feedback']),
+      doctorFeedback: json['doctor_feedback'],
       possibleDiseases: diseasesList,
+      createdAt: DateTime.parse(json['created_at']),
     );
   }
 
@@ -68,14 +64,13 @@ class ReportModel {
 
     return {
       "id": id,
-      "patient_id": patientId,
-      "doctor_id": doctorId,
-      "patient_info": patientInfo.toJSON(),
-      "doctor_info": doctorInfo.toJSON(),
+      "patient": patient.toJSON(),
+      "doctor": doctor.toJSON(),
       "symptoms": symptomsJSON,
       "patient_note": patientNote,
-      "doctor_feedback": doctorFeedback.toJSON(),
+      "doctor_feedback": doctorFeedback,
       "possible_diseases": diseasesJSON,
+      "created_at": createdAt.toIso8601String(),
     };
   }
 }

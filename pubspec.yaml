@@ -38,6 +38,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   get_it: 7.2.0
   provider: 6.0.5
+  font_awesome_flutter: ^10.4.0
+  go_router: ^6.5.7
+  dio: ^5.1.1
+  intl: ^0.18.1
+  modal_bottom_sheet: 2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +67,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+     - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -76,9 +82,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
+  fonts:
+    - family: SoftFont
+      fonts:
+        - asset: assets/fonts/Pacifico-Regular.ttf
+    - family: SignikaFont
+      fonts:
+        - asset: assets/fonts/SignikaNegative-VariableFont_wght.ttf
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

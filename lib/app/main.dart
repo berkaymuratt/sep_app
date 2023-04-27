@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sep_app/app/pages/login_page/login_page.dart';
+import 'package:sep_app/app/shared/sep_colors.dart';
 import 'package:sep_app/app/shared/view_models/auth_view_model.dart';
 import 'package:sep_app/locator.dart';
+import 'package:sep_app/router/sep_router.dart';
 
 void main() {
   setupLocator();
@@ -17,17 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => AuthViewModel(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'SEP',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: SepColors.primaryColor,
         ),
-        home: const LoginPage(),
+        routerConfig: router,
       ),
     );
-  }
-
-  void get() async {
-
   }
 }

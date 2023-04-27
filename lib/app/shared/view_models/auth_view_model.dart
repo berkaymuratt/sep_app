@@ -16,7 +16,7 @@ class AuthViewModel extends ViewModelBase {
       doctorUser = await _authRepository.loginAsDoctor(userId, password);
       return doctorUser;
     } catch (e) {
-      setErrorMsg("Bir hata oluştu...");
+      errorMsg = e.toString();
       return null;
     } finally {
       state = ViewState.BUSY;
@@ -26,10 +26,10 @@ class AuthViewModel extends ViewModelBase {
   Future<PatientModel?> loginAsPatient(String userId, String password) async {
     try {
       state = ViewState.BUSY;
-      var patientUser = await _authRepository.loginAsPatient(userId, password);
+      patientUser = await _authRepository.loginAsPatient(userId, password);
       return patientUser;
     } catch (e) {
-      setErrorMsg("Bir hata oluştu...");
+      errorMsg = e.toString();
       return null;
     } finally {
       state = ViewState.BUSY;
@@ -44,7 +44,7 @@ class AuthViewModel extends ViewModelBase {
       doctorUser = null;
       return true;
     } catch (e) {
-      setErrorMsg("Bir hata oluştu...");
+      errorMsg = e.toString();
       return false;
     } finally {
       state = ViewState.IDLE;
