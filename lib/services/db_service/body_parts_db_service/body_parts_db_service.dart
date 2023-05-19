@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/body_part_model.dart';
@@ -6,12 +7,13 @@ import 'package:sep_app/services/db_service/body_parts_db_service/body_parts_db_
 
 class BodyPartsDbService extends BodyPartsDbServiceBase {
   final Dio dio = Dio();
+  String baseUrl = locator<ApiUrl>().url;
 
   @override
   Future<List<BodyPartModel>> getBodyParts() async {
     try {
       final response = await dio.get(
-          'http://localhost:8080/api/body-parts',
+          '$baseUrl/body-parts',
           options: Options(
             headers: {
               'Content-Type': 'application/json; charset=UTF-8',

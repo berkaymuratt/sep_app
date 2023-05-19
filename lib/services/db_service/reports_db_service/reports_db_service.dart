@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/report_model.dart';
@@ -7,12 +8,13 @@ import 'package:sep_app/services/db_service/reports_db_service/reports_db_servic
 class ReportsDbService extends ReportsDbServiceBase {
 
   final Dio dio = Dio();
+  String baseUrl = locator<ApiUrl>().url;
 
   @override
   Future<ReportModel> getReport(String reportId) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/reports/$reportId',
+        '$baseUrl/reports/$reportId',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -38,7 +40,7 @@ class ReportsDbService extends ReportsDbServiceBase {
   Future<List<ReportModel>> getReportsByDoctorId(String doctorId) async {
     try {
       final response = await dio.get(
-          'http://localhost:8080/api/reports',
+          '$baseUrl/reports',
           options: Options(
             headers: {
               'Content-Type': 'application/json; charset=UTF-8',
@@ -76,7 +78,7 @@ class ReportsDbService extends ReportsDbServiceBase {
   Future<List<ReportModel>> getReportsByPatientId(String patientId) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/reports',
+        '$baseUrl/reports',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',

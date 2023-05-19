@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
 
 class HomeMenuCard extends StatelessWidget {
-  String title;
-  IconData iconData;
+  final String title;
+  final IconData iconData;
   Color? iconColor;
   void Function() onPressed;
 
@@ -53,7 +53,7 @@ class HomeMenuCard extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
             color: iconColor,
             fontFamily: 'SignikaFont',
@@ -62,7 +62,7 @@ class HomeMenuCard extends StatelessWidget {
         const SizedBox(height: 10),
         Icon(
           iconData,
-          size: 40,
+          size: 38,
           color: iconColor,
         ),
       ],

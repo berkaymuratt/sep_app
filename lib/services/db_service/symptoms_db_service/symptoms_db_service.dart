@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/symptom_model.dart';
@@ -6,12 +7,13 @@ import 'package:sep_app/services/db_service/symptoms_db_service/symptoms_db_serv
 
 class SymptomsDbService extends SymptomsDbServiceBase {
   final Dio dio = Dio();
+  String baseUrl = locator<ApiUrl>().url;
 
   @override
   Future<List<SymptomModel>> getSymptoms(String bodyPartId) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/symptoms',
+        '$baseUrl/symptoms',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',

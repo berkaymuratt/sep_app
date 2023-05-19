@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/repositories/auth/auth_repository.dart';
 import 'package:sep_app/repositories/db/appointments_repository.dart';
@@ -19,6 +20,7 @@ final locator = GetIt.instance;
 
 void setupLocator() {
   locator.registerLazySingleton(() => JwtManager());
+  locator.registerLazySingleton(() => ApiUrl());
 
   locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => PatientsDbService());

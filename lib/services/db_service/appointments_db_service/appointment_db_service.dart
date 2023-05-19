@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/appointment_model.dart';
@@ -7,12 +8,13 @@ import 'package:sep_app/services/db_service/appointments_db_service/appointments
 class AppointmentDbService extends AppointmentsDbServiceBase {
 
   Dio dio = Dio();
+  String baseUrl = locator<ApiUrl>().url;
 
   @override
   Future<AppointmentModel> getAppointment(String appointmentId) async {
     try {
       final response = await dio.get(
-          'http://localhost:8080/api/appointments/$appointmentId',
+          '$baseUrl/appointments/$appointmentId',
           options: Options(
             headers: {
               'Content-Type': 'application/json; charset=UTF-8',
@@ -44,7 +46,7 @@ class AppointmentDbService extends AppointmentsDbServiceBase {
   Future<List<AppointmentModel>> getAppointmentsByPatientId(String patientId) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/appointments',
+        '$baseUrl/appointments',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -85,7 +87,7 @@ class AppointmentDbService extends AppointmentsDbServiceBase {
   Future<bool> createAppointment(AppointmentModel appointment) async {
     try {
       final response = await dio.post(
-        'http://localhost:8080/api/appointments/',
+        '$baseUrl/appointments/',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',

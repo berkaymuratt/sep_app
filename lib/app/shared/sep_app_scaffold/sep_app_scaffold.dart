@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
 import 'package:sep_app/app/shared/sep_app_scaffold/drawer_link.dart';
+import 'package:sep_app/app/shared/view_models/auth_view_model.dart';
 
 class SepAppScaffold extends StatelessWidget {
   final Widget child;
@@ -49,6 +51,9 @@ class SepAppScaffold extends StatelessWidget {
 }
 
 Widget _profileSection(BuildContext context) {
+  final viewModel = context.read<AuthViewModel>();
+  final user = viewModel.patientUser!;
+
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
     padding: const EdgeInsets.all(5.0),
@@ -66,9 +71,9 @@ Widget _profileSection(BuildContext context) {
           size: 50,
         ),
         const SizedBox(width: 10),
-        const Text(
-          "Berkay Murat",
-          style: TextStyle(
+        Text(
+          "${user.patientInfo!.name} ${user.patientInfo!.surname}",
+          style: const TextStyle(
             fontSize: 18,
           ),
         ),

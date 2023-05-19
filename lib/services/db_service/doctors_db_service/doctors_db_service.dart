@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sep_app/ApiUrl.dart';
 import 'package:sep_app/jwt_manager.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/users/doctor_model.dart';
@@ -6,12 +7,13 @@ import 'package:sep_app/services/db_service/doctors_db_service/doctors_db_servic
 
 class DoctorsDbService extends DoctorsDbServiceBase {
   final Dio dio = Dio();
+  String baseUrl = locator<ApiUrl>().url;
 
   @override
   Future<DoctorModel> getDoctor(String doctorId) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/doctors/$doctorId',
+        '$baseUrl/doctors/$doctorId',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -48,7 +50,7 @@ class DoctorsDbService extends DoctorsDbServiceBase {
   Future<List<DateTime>> getBusyTimes(String doctorId, DateTime newDate) async {
     try {
       final response = await dio.get(
-        'http://localhost:8080/api/doctors/$doctorId/busy-times',
+        '$baseUrl/doctors/$doctorId/busy-times',
         options: Options(
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
