@@ -4,7 +4,7 @@ class PatientModel {
   String id;
   String doctorId;
   String userId;
-  PatientInfoModel patientInfo;
+  PatientInfoModel? patientInfo;
 
   PatientModel({
     required this.id,
@@ -13,13 +13,19 @@ class PatientModel {
     required this.patientInfo,
   });
 
+  factory PatientModel.empty() => PatientModel(
+        id: "",
+        userId: "",
+        doctorId: "",
+        patientInfo: null,
+      );
+
   factory PatientModel.fromJSON(Map<String, dynamic> json) {
     return PatientModel(
-      id: json['id'],
-      doctorId: json['doctor_id'],
-      userId: json['user_id'],
-      patientInfo: PatientInfoModel.fromJSON(json['patient_info'])
-    );
+        id: json['id'],
+        doctorId: json['doctor_id'],
+        userId: json['user_id'],
+        patientInfo: PatientInfoModel.fromJSON(json['patient_info']));
   }
 
   Map<String, dynamic> toJSON() {
@@ -27,7 +33,7 @@ class PatientModel {
       "id": id,
       "doctor_id": doctorId,
       "user_id": userId,
-      "patient_info": patientInfo.toJSON(),
+      "patient_info": patientInfo != null ? patientInfo!.toJSON() : null,
     };
   }
 }

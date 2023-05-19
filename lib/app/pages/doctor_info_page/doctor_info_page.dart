@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sep_app/app/pages/doctor_info_page/doctor_info_page_view_model.dart';
 import 'package:sep_app/app/pages/doctor_info_page/widgets/doctor_info_card.dart';
 import 'package:sep_app/app/shared/view_models/auth_view_model.dart';
-import 'package:sep_app/app/shared/widgets/sep_app_scaffold/sep_app_scaffold.dart';
+import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
 import 'package:sep_app/app/shared/widgets/sep_loader/sep_loader.dart';
 
 class DoctorInfoPage extends StatefulWidget {

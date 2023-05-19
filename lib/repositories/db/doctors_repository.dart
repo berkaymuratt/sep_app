@@ -22,4 +22,9 @@ class DoctorsRepository extends DoctorsDbServiceBase {
     return _service.updateDoctor(doctorId, updatedVersion);
   }
 
+  @override
+  Future<List<DateTime>> getBusyTimes(String doctorId, DateTime newDate) {
+    return _service.getBusyTimes(doctorId, newDate);
+  }
+
 }

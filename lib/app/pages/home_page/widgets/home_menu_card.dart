@@ -32,11 +32,14 @@ class HomeMenuCard extends StatelessWidget {
 
   BoxDecoration get _itemDecoration {
     return BoxDecoration(
-      border: Border.all(
-        color: Colors.grey,
-        style: BorderStyle.solid,
-        width: 0.5,
-      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.4),
+          spreadRadius: 5,
+          blurRadius: 4,
+          offset: const Offset(0, 5), // changes position of shadow
+        ),
+      ],
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       color: SepColors.secondaryColor,
     );
@@ -50,7 +53,7 @@ class HomeMenuCard extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 21,
+            fontSize: 20,
             fontWeight: FontWeight.w500,
             color: iconColor,
             fontFamily: 'SignikaFont',
@@ -59,7 +62,7 @@ class HomeMenuCard extends StatelessWidget {
         const SizedBox(height: 10),
         Icon(
           iconData,
-          size: 50,
+          size: 40,
           color: iconColor,
         ),
       ],

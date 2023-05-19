@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sep_app/app/shared/view_models/view_model_base.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/appointment_model.dart';
-import 'package:sep_app/repositores/db/appointments_repository.dart';
+import 'package:sep_app/repositories/db/appointments_repository.dart';
 
 class AppointmentsPageViewModel extends ViewModelBase {
   final AppointmentsRepository _appointmentsRepository = locator<AppointmentsRepository>();

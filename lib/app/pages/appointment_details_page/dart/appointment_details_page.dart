@@ -7,7 +7,7 @@ import 'package:sep_app/app/pages/appointment_details_page/dart/appointment_deta
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
-import 'package:sep_app/app/shared/widgets/sep_app_scaffold/sep_app_scaffold.dart';
+import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
 import 'package:sep_app/app/shared/widgets/sep_divider/sep_divider.dart';
 import 'package:sep_app/app/shared/widgets/sep_loader/sep_loader.dart';
 import 'package:sep_app/models/symptom_model.dart';
@@ -59,27 +59,27 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _field("Tarih", dateFormatter.format(appointment.date)),
-                  _field("Saat", timeFormatter.format(appointment.date)),
+                  _field("Tarih", dateFormatter.format(appointment.date!)),
+                  _field("Saat", timeFormatter.format(appointment.date!)),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: SepDivider(height: 0.8, width: 500),
                   ),
                   _field("Doktor",
-                      "${appointment.doctor.doctorInfo.name} ${appointment.doctor.doctorInfo.surname}"),
-                  _field("Telefon", appointment.doctor.doctorInfo.telephone),
-                  _field("Adres", appointment.doctor.doctorInfo.address),
+                      "${appointment.doctor!.doctorInfo!.name} ${appointment.doctor!.doctorInfo!.surname}"),
+                  _field("Telefon", appointment.doctor!.doctorInfo!.telephone),
+                  _field("Adres", appointment.doctor!.doctorInfo!.address),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: SepDivider(height: 0.8, width: 500),
                   ),
                   _field("Hasta",
-                      "${appointment.patient.patientInfo.name} ${appointment.patient.patientInfo.surname}"),
-                  _field("Cinsiyet", appointment.patient.patientInfo.gender),
-                  _field("Yaş", appointment.patient.patientInfo.age.toString()),
-                  _field("Boy", "${appointment.patient.patientInfo.height} cm"),
+                      "${appointment.patient!.patientInfo!.name} ${appointment.patient!.patientInfo!.surname}"),
+                  _field("Cinsiyet", appointment.patient!.patientInfo!.gender),
+                  _field("Yaş", appointment.patient!.patientInfo!.age.toString()),
+                  _field("Boy", "${appointment.patient!.patientInfo!.height} cm"),
                   _field(
-                      "Kilo", "${appointment.patient.patientInfo.weight} kg"),
+                      "Kilo", "${appointment.patient!.patientInfo!.weight} kg"),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: SepDivider(height: 0.8, width: 500),

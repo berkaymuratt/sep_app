@@ -2,7 +2,7 @@ import 'package:sep_app/app/shared/view_models/view_model_base.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/users/doctor_model.dart';
 import 'package:sep_app/models/users/patient_model.dart';
-import 'package:sep_app/repositores/auth/auth_repository.dart';
+import 'package:sep_app/repositories/auth/auth_repository.dart';
 
 class AuthViewModel extends ViewModelBase {
   final AuthRepository _authRepository = locator<AuthRepository>();

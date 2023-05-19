@@ -23,8 +23,8 @@ class AppointmentsRepository extends AppointmentsDbServiceBase {
   }
 
   @override
-  Future<bool> updateAppointment(String appointmentId, AppointmentModel updatedVersion) {
-    return _service.updateAppointment(appointmentId, updatedVersion);
+  Future<bool> createAppointment(AppointmentModel appointment) {
+    return _service.createAppointment(appointment);
   }
 
 }

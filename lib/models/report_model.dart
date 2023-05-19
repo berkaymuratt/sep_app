@@ -33,8 +33,10 @@ class ReportModel {
 
     List<DiseaseModel> diseasesList = [];
 
-    for (var diseaseJSON in json['possible_diseases']) {
-      diseasesList.add(DiseaseModel.fromJSON(diseaseJSON));
+    if (json['possible_diseases'] != null) {
+      for (var diseaseJSON in json['possible_diseases']) {
+        diseasesList.add(DiseaseModel.fromJSON(diseaseJSON));
+      }
     }
 
     return ReportModel(
@@ -70,7 +72,9 @@ class ReportModel {
       "patient_note": patientNote,
       "doctor_feedback": doctorFeedback,
       "possible_diseases": diseasesJSON,
-      "created_at": createdAt.toIso8601String(),
+      "created_at": createdAt.toIso8601String().contains("Z")
+          ? createdAt.toIso8601String()
+          : "${createdAt.toIso8601String()}Z",
     };
   }
 }
