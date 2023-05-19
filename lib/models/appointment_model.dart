@@ -4,9 +4,9 @@ import 'package:sep_app/models/users/patient_model.dart';
 
 class AppointmentModel {
   String id;
-  DoctorModel doctor;
-  PatientModel patient;
-  DateTime date;
+  DoctorModel? doctor;
+  PatientModel? patient;
+  DateTime? date;
   String reportId;
   List<SymptomModel>? symptoms = [];
   String patientNote;
@@ -21,8 +21,17 @@ class AppointmentModel {
     required this.patientNote,
   });
 
-  factory AppointmentModel.fromJSON(Map<String, dynamic> json) {
+  factory AppointmentModel.empty() => AppointmentModel(
+        id: "",
+        doctor: null,
+        patient: null,
+        date: null,
+        reportId: "",
+        symptoms: null,
+        patientNote: "",
+      );
 
+  factory AppointmentModel.fromJSON(Map<String, dynamic> json) {
     final List<SymptomModel> symptomsList = [];
 
     for (Map<String, dynamic> symptomJSON in json['symptoms']) {
@@ -40,14 +49,14 @@ class AppointmentModel {
     );
   }
 
-
   Map<String, dynamic> toJSON() {
-
     Map<String, dynamic> json = {
       "id": id,
-      "doctor": doctor.toJSON(),
-      "patient": patient.toJSON(),
-      "date": date.toIso8601String(),
+      "doctor": doctor != null ? doctor!.toJSON() : null,
+      "patient": patient != null ? patient!.toJSON() : null,
+      "date": date!.toIso8601String().contains("Z")
+          ? date!.toIso8601String()
+          : "${date!.toIso8601String()}Z",
       "report_id": reportId,
       "patient_note": patientNote
     };

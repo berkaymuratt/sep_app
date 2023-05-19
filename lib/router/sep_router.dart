@@ -5,6 +5,8 @@ import 'package:sep_app/app/pages/appointment_details_page/dart/appointment_deta
 import 'package:sep_app/app/pages/appointment_details_page/dart/appointment_details_page_view_model.dart';
 import 'package:sep_app/app/pages/appointments_page/appointments_page.dart';
 import 'package:sep_app/app/pages/appointments_page/appointments_page_view_model.dart';
+import 'package:sep_app/app/pages/create_appointment_page/create_appointment_page.dart';
+import 'package:sep_app/app/pages/create_appointment_page/create_appointment_page_view_model.dart';
 import 'package:sep_app/app/pages/doctor_info_page/doctor_info_page.dart';
 import 'package:sep_app/app/pages/doctor_info_page/doctor_info_page_view_model.dart';
 import 'package:sep_app/app/pages/home_page/home_page.dart';
@@ -31,6 +33,7 @@ final GoRouter router = GoRouter(
           _doctorInfoRoutes(),
           _myAppointmentsRoutes(),
           _myReportsRoutes(),
+          _createAppointmentRoutes(),
         ]),
   ],
 );
@@ -125,14 +128,36 @@ GoRoute _myReportsRoutes() {
   );
 }
 
+GoRoute _createAppointmentRoutes() {
+  return GoRoute(
+    path: 'create-appointment',
+    pageBuilder: (context, state) {
+      return _byFadeTransition(
+        context,
+        state,
+        ChangeNotifierProvider(
+          create: (context) => CreateAppointmentPageViewModel(),
+          child: CreateAppointmentPage(),
+        ),
+      );
+    },
+  );
+}
+
 CustomTransitionPage _byFadeTransition(
     BuildContext context, GoRouterState state, Widget page) {
   return CustomTransitionPage(
     key: state.pageKey,
     child: page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return FadeTransition(
-        opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+      var begin = const Offset(1.0, 0.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
         child: child,
       );
     },

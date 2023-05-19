@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
-import 'package:sep_app/app/shared/widgets/sep_app_scaffold/sep_app_scaffold.dart';
+import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
 import 'package:sep_app/app/shared/widgets/sep_loader/sep_loader.dart';
 
 class ReportDetailsPage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sep_app/app/shared/view_models/view_model_base.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/report_model.dart';
-import 'package:sep_app/repositores/db/reports_repository.dart';
+import 'package:sep_app/repositories/db/reports_repository.dart';
 
 class ReportDetailsPageViewModel extends ViewModelBase {
   final ReportsRepository _reportsRepository = locator<ReportsRepository>();

@@ -43,7 +43,7 @@ class DoctorInfoCard extends StatelessWidget {
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          doctor.doctorInfo.name,
+                          doctor.doctorInfo!.name,
                           style: _valueStyle,
                         ),
                       ),
@@ -58,7 +58,7 @@ class DoctorInfoCard extends StatelessWidget {
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          doctor.doctorInfo.surname,
+                          doctor.doctorInfo!.surname,
                           style: _valueStyle,
                         ),
                       ),
@@ -78,7 +78,7 @@ class DoctorInfoCard extends StatelessWidget {
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          doctor.doctorInfo.telephone,
+                          doctor.doctorInfo!.telephone,
                           style: _valueStyle,
                         ),
                       ),
@@ -93,7 +93,7 @@ class DoctorInfoCard extends StatelessWidget {
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
-                          doctor.doctorInfo.address,
+                          doctor.doctorInfo!.address,
                           style: _valueStyle,
                         ),
                       ),
@@ -110,11 +110,14 @@ class DoctorInfoCard extends StatelessWidget {
 
   BoxDecoration get _cardDecoration {
     return BoxDecoration(
-      border: Border.all(
-        style: BorderStyle.solid,
-        color: Colors.grey,
-        width: 1,
-      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 4,
+          blurRadius: 5,
+          offset: const Offset(0, 3), // changes position of shadow
+        ),
+      ],
       color: Colors.white,
       borderRadius: const BorderRadius.all(Radius.circular(50)),
     );
@@ -122,13 +125,13 @@ class DoctorInfoCard extends StatelessWidget {
 
   TextStyle get _titleStyle {
     return const TextStyle(
-      fontSize: 18,
+      fontSize: 17,
     );
   }
 
   TextStyle get _valueStyle {
     return const TextStyle(
-      fontSize: 16.5,
+      fontSize: 15.5,
     );
   }
 }

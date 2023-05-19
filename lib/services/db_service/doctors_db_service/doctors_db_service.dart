@@ -44,4 +44,45 @@ class DoctorsDbService extends DoctorsDbServiceBase {
     throw UnimplementedError();
   }
 
+  @override
+  Future<List<DateTime>> getBusyTimes(String doctorId, DateTime newDate) async {
+    try {
+      final response = await dio.get(
+        'http://localhost:8080/api/doctors/$doctorId/busy-times',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'jwt': locator<JwtManager>().jwtToken,
+          },
+        ),
+        queryParameters: {
+          "date": "${newDate.toIso8601String()}Z",
+        },
+      );
+
+      List<DateTime> busyTimes = [];
+
+      var busyTimesList = response.data['busy_times'];
+
+      if (busyTimesList == null) {
+        return [];
+      }
+
+      for (String time in busyTimesList) {
+        busyTimes.add(DateTime.parse(time));
+      }
+
+      return busyTimes;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == 401) {
+          locator<JwtManager>().clearToken();
+        }
+        throw Exception(e.response!.data['message']);
+      } else {
+        throw Exception("Bir hata oluştu");
+      }
+    }
+  }
+
 }

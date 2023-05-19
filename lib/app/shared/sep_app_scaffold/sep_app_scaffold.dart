@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
-import 'package:sep_app/app/shared/widgets/sep_app_scaffold/drawer_link.dart';
+import 'package:sep_app/app/shared/sep_app_scaffold/drawer_link.dart';
 
 class SepAppScaffold extends StatelessWidget {
   final Widget child;
@@ -25,7 +25,7 @@ class SepAppScaffold extends StatelessWidget {
     );
   }
 
-  Text get _title {
+  Widget get _title {
     return const Text(
       "SEP",
       style: TextStyle(

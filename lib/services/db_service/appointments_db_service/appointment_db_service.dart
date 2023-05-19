@@ -82,9 +82,30 @@ class AppointmentDbService extends AppointmentsDbServiceBase {
   }
 
   @override
-  Future<bool> updateAppointment(String appointmentId, AppointmentModel updatedVersion) {
-    // TODO: implement updateAppointment
-    throw UnimplementedError();
+  Future<bool> createAppointment(AppointmentModel appointment) async {
+    try {
+      final response = await dio.post(
+        'http://localhost:8080/api/appointments/',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'jwt': locator<JwtManager>().jwtToken,
+          },
+        ),
+        data: appointment.toJSON(),
+      );
+
+     return response.statusCode == 201;
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == 401) {
+          locator<JwtManager>().clearToken();
+        }
+        throw Exception(e.response!.data['message']);
+      } else {
+        throw Exception("Bir hata oluştu");
+      }
+    }
   }
 
 }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:sep_app/app/shared/view_models/view_model_base.dart';
 import 'package:sep_app/locator.dart';
 import 'package:sep_app/models/users/doctor_model.dart';
-import 'package:sep_app/repositores/db/doctors_repository.dart';
+import 'package:sep_app/repositories/db/doctors_repository.dart';
 
 class DoctorInfoPageViewModel extends ViewModelBase {
   final DoctorsRepository _doctorsRepository = locator<DoctorsRepository>();
