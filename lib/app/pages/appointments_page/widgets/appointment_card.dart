@@ -26,8 +26,9 @@ class AppointmentCard extends StatelessWidget {
           children: [
             Text(
               SepDateFormatter.dateFormatter.format(appointment.date!),
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: _isAppointmentToday(appointment.date!) ? Colors.green : null,
                 fontSize: 17.0,
               ),
             ),
@@ -35,7 +36,8 @@ class AppointmentCard extends StatelessWidget {
             Text(
               SepDateFormatter.timeFormatter.format(appointment.date!),
               textAlign: TextAlign.end,
-              style: const TextStyle(
+              style: TextStyle(
+                color: _isAppointmentToday(appointment.date!) ? Colors.green : null,
                 fontSize: 15.0,
               ),
             ),
@@ -50,5 +52,11 @@ class AppointmentCard extends StatelessWidget {
         },
       ),
     );
+  }
+
+  bool _isAppointmentToday(DateTime date) {
+    final now = DateTime.now();
+
+    return now.day == date.day && now.month == date.month && date.year == date.year;
   }
 }

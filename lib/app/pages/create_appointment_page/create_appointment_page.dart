@@ -58,11 +58,11 @@ class CreateAppointmentPage extends StatelessWidget {
             : null,
         disabledColor: Colors.grey,
         color: Colors.red,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               FaIcon(
                 FontAwesomeIcons.calendarPlus,
                 color: Colors.white,

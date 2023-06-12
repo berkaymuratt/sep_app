@@ -42,7 +42,7 @@ class AppointmentModel {
       id: json['id'],
       doctor: DoctorModel.fromJSON(json['doctor']),
       patient: PatientModel.fromJSON(json['patient']),
-      date: DateTime.parse(json['date']),
+      date: DateTime.parse(json['date']).toLocal(),
       symptoms: symptomsList,
       reportId: json['report_id'],
       patientNote: json['patient_note'],
@@ -54,9 +54,9 @@ class AppointmentModel {
       "id": id,
       "doctor": doctor != null ? doctor!.toJSON() : null,
       "patient": patient != null ? patient!.toJSON() : null,
-      "date": date!.toIso8601String().contains("Z")
-          ? date!.toIso8601String()
-          : "${date!.toIso8601String()}Z",
+      "date": date!.toUtc().toIso8601String().contains("Z")
+          ? date!.toUtc().toIso8601String()
+          : "${date!.toUtc().toIso8601String()}Z",
       "report_id": reportId,
       "patient_note": patientNote
     };

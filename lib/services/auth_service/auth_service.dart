@@ -13,40 +13,25 @@ class AuthService extends AuthServiceBase {
   String baseUrl = locator<ApiUrl>().url;
 
   @override
-  Future<DoctorModel> loginAsDoctor(String userId, String password) {
-    // TODO: implement loginAsDoctor
-    throw UnimplementedError();
-  }
-
-  @override
   Future<PatientModel> loginAsPatient(String userId, String password) async {
     try {
-      print("-YE-");
-      final response = await dio.post(
-        '$baseUrl/auth/login-as-patient',
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
-        queryParameters: {
-          "user_id": userId,
-          "user_password": password,
-        }
-      );
-      print("reponse: ${response.data}");
+      final response =
+      await dio.post('$baseUrl/auth/login-as-patient',
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+          ),
+          queryParameters: {
+            "user_id": userId,
+            "user_password": password,
+          });
 
-      var jwtValue = response.headers.map["jwt"];
+      var token = response.data['sep-token'];
+      jwtManager.jwtToken = token;
 
-      if (jwtValue != null) {
-        jwtManager.jwtToken = jwtValue.first;
-      }
-
-      debugPrint(jwtManager.jwtToken);
-
-      return PatientModel.fromJSON(response.data);
+      return PatientModel.fromJSON(response.data['patient']);
     } on DioError catch (e) {
-      print("reponse: ${e.error}");
       if (e.response != null) {
         throw Exception(e.response!.data['message']);
       } else {

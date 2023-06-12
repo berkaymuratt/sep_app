@@ -8,20 +8,6 @@ class AuthViewModel extends ViewModelBase {
   final AuthRepository _authRepository = locator<AuthRepository>();
 
   PatientModel? patientUser;
-  DoctorModel? doctorUser;
-
-  Future<DoctorModel?> loginAsDoctor(String userId, String password) async {
-    try {
-      state = ViewState.BUSY;
-      doctorUser = await _authRepository.loginAsDoctor(userId, password);
-      return doctorUser;
-    } catch (e) {
-      errorMsg = e.toString();
-      return null;
-    } finally {
-      state = ViewState.BUSY;
-    }
-  }
 
   Future<PatientModel?> loginAsPatient(String userId, String password) async {
     try {
@@ -32,7 +18,7 @@ class AuthViewModel extends ViewModelBase {
       errorMsg = e.toString();
       return null;
     } finally {
-      state = ViewState.BUSY;
+      state = ViewState.IDLE;
     }
   }
 
@@ -41,7 +27,6 @@ class AuthViewModel extends ViewModelBase {
       state = ViewState.BUSY;
       _authRepository.signOut();
       patientUser = null;
-      doctorUser = null;
       return true;
     } catch (e) {
       errorMsg = e.toString();

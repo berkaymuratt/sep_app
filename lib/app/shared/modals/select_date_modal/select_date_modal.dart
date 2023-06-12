@@ -65,10 +65,10 @@ class _SelectDateModalState extends State<SelectDateModal> {
   }
 
   Widget get _header {
-    return Column(
+    return const Column(
       children: [
         Row(
-          children: const [
+          children: [
             FaIcon(FontAwesomeIcons.calendar),
             SizedBox(width: 10),
             Text(
@@ -79,7 +79,7 @@ class _SelectDateModalState extends State<SelectDateModal> {
             ),
           ],
         ),
-        const Divider(thickness: 2),
+        Divider(thickness: 2),
       ],
     );
   }
@@ -207,9 +207,9 @@ class _SelectDateModalState extends State<SelectDateModal> {
                 context.pop();
               }
             },
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 FaIcon(
                   FontAwesomeIcons.check,
                   color: Colors.white,
@@ -239,7 +239,7 @@ class _SelectDateModalState extends State<SelectDateModal> {
       initialDate: viewModel.selectedDate == null
           ? DateTime.now()
           : viewModel.selectedDate!,
-      firstDate: DateTime(1950),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     ).then((newDate) {
       viewModel.selectedDateWithTime = null;

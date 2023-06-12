@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 
-void displaySuccessMessage(BuildContext context, {required content}) {
+void displaySuccessMessage(BuildContext context, {required String content}) {
   MotionToast.success(
     title: const Text(
       'İşlem Başarılı',

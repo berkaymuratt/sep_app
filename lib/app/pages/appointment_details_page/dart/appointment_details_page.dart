@@ -4,12 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:sep_app/app/pages/appointment_details_page/dart/appointment_details_page_view_model.dart';
+import 'package:sep_app/app/pages/appointment_details_page/dart/widgets/info_card.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
 import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
 import 'package:sep_app/app/shared/widgets/sep_divider/sep_divider.dart';
 import 'package:sep_app/app/shared/widgets/sep_loader/sep_loader.dart';
+import 'package:sep_app/models/appointment_model.dart';
 import 'package:sep_app/models/symptom_model.dart';
 
 class AppointmentDetailsPage extends StatefulWidget {
@@ -23,6 +25,9 @@ class AppointmentDetailsPage extends StatefulWidget {
 }
 
 class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
+  final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
+  final DateFormat timeFormatter = DateFormat('HH:mm');
+
   @override
   void initState() {
     super.initState();
@@ -46,9 +51,6 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
     } else {
       var appointment = viewModel.appointment!;
 
-      final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
-      final DateFormat timeFormatter = DateFormat('HH:mm:ss');
-
       return SepAppScaffold(
         child: ListView(
           children: [
@@ -57,43 +59,15 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _field("Tarih", dateFormatter.format(appointment.date!)),
-                  _field("Saat", timeFormatter.format(appointment.date!)),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: SepDivider(height: 0.8, width: 500),
-                  ),
-                  _field("Doktor",
-                      "${appointment.doctor!.doctorInfo!.name} ${appointment.doctor!.doctorInfo!.surname}"),
-                  _field("Telefon", appointment.doctor!.doctorInfo!.telephone),
-                  _field("Adres", appointment.doctor!.doctorInfo!.address),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: SepDivider(height: 0.8, width: 500),
-                  ),
-                  _field("Hasta",
-                      "${appointment.patient!.patientInfo!.name} ${appointment.patient!.patientInfo!.surname}"),
-                  _field("Cinsiyet", appointment.patient!.patientInfo!.gender),
-                  _field("Yaş", appointment.patient!.patientInfo!.age.toString()),
-                  _field("Boy", "${appointment.patient!.patientInfo!.height} cm"),
-                  _field(
-                      "Kilo", "${appointment.patient!.patientInfo!.weight} kg"),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: SepDivider(height: 0.8, width: 500),
-                  ),
-                  _field(
-                      "Semptomlar", _symptomsAsString(appointment.symptoms!)),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: SepDivider(height: 0.8, width: 500),
-                  ),
-                  _field("Hastanın Notu", appointment.patientNote),
-                  _displayReportButton(context, appointment.reportId),
-                ],
+                children: _cards(appointment),
               ),
+            ),
+            const SizedBox(height: 10),
+            Column(
+              children: [
+                _displayReportButton(context, appointment.reportId),
+                _cancelAppointmentButton(context, appointment.reportId),
+              ],
             ),
           ],
         ),
@@ -102,18 +76,24 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
   }
 
   Padding get _title {
-    return Padding(
-      padding: const EdgeInsets.all(15),
+    return const Padding(
+      padding: EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text(
-            "Randevu Detayları",
-            style: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-              fontFamily: "SignikaFont",
-            ),
+        children: [
+          Row(
+            children: [
+              FaIcon(FontAwesomeIcons.calendarDays, size: 15),
+              SizedBox(width: 10),
+              Text(
+                "Randevu Detayları",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "SignikaFont",
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: 10,
@@ -124,25 +104,128 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
     );
   }
 
-  Widget _field(String field, String value) {
+  List<Widget> _cards(AppointmentModel appointment) {
+    return [
+      _patientInfoCard(appointment),
+      _doctorInfoCard(appointment),
+      _timeInfoCard(appointment),
+      _symptomInfoCard(appointment),
+      _patientNoteCard(appointment),
+    ];
+  }
+
+  InfoCard _patientNoteCard(AppointmentModel appointment) {
+    return InfoCard(
+      title: "Hastanın Notu",
+      icon: FontAwesomeIcons.hospitalUser,
+      items: [InfoCardItem(name: "Not", value: appointment.patientNote)],
+    );
+  }
+
+  InfoCard _symptomInfoCard(AppointmentModel appointment) {
+    return InfoCard(
+      title: "Semptom Bilgisi",
+      icon: FontAwesomeIcons.bedPulse,
+      items: _symptomsAsInfoCardItems(appointment.symptoms!),
+    );
+  }
+
+  InfoCard _timeInfoCard(AppointmentModel appointment) {
+    return InfoCard(
+      title: "Zaman Bilgisi",
+      icon: FontAwesomeIcons.clock,
+      items: [
+        InfoCardItem(
+            name: "Tarih", value: dateFormatter.format(appointment.date!)),
+        InfoCardItem(
+            name: "Saat", value: timeFormatter.format(appointment.date!)),
+      ],
+    );
+  }
+
+  InfoCard _doctorInfoCard(AppointmentModel appointment) {
+    return InfoCard(
+      title: "Doktor Bilgisi",
+      icon: FontAwesomeIcons.userDoctor,
+      items: [
+        InfoCardItem(
+            name: "Doktor",
+            value:
+                "${appointment.doctor!.doctorInfo!.name} ${appointment.doctor!.doctorInfo!.surname}"),
+        InfoCardItem(
+            name: "Telefon", value: appointment.doctor!.doctorInfo!.telephone),
+        InfoCardItem(
+            name: "Adres", value: appointment.doctor!.doctorInfo!.address),
+      ],
+    );
+  }
+
+  InfoCard _patientInfoCard(AppointmentModel appointment) {
+    return InfoCard(
+      title: "Hasta Bilgisi",
+      icon: FontAwesomeIcons.hospitalUser,
+      items: [
+        InfoCardItem(
+            name: "Hasta",
+            value:
+                "${appointment.patient!.patientInfo!.name} ${appointment.patient!.patientInfo!.surname}"),
+        InfoCardItem(
+            name: "Cinsiyet", value: appointment.patient!.patientInfo!.gender),
+        InfoCardItem(
+            name: "Yaş",
+            value: appointment.patient!.patientInfo!.age.toString()),
+        InfoCardItem(
+            name: "Boy",
+            value: "${appointment.patient!.patientInfo!.height} cm"),
+        InfoCardItem(
+            name: "Kilo",
+            value: "${appointment.patient!.patientInfo!.weight} kg"),
+      ],
+    );
+  }
+
+  List<InfoCardItem> _symptomsAsInfoCardItems(List<SymptomModel> symptomsList) {
+    List<InfoCardItem> symptoms = [];
+
+    for (int i = 0; i < symptomsList.length; i++) {
+      var symptom = symptomsList[i];
+      symptoms.add(InfoCardItem(
+          name: "Semptom ${i + 1}",
+          value: "${symptom.name} (${symptom.level}. seviye)\n"));
+    }
+
+    return symptoms;
+  }
+
+  Widget _cancelAppointmentButton(BuildContext context, String reportId) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-      child: Row(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+        vertical: 5.0,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Text(
-              "$field:",
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              value,
+          MaterialButton(
+            onPressed: () {},
+            color: SepColors.primaryColor,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.remove,
+                  color: Colors.white,
+                  size: 15.0,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "Randevuyu İptal Et",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -150,21 +233,11 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
     );
   }
 
-  String _symptomsAsString(List<SymptomModel> symptomsList) {
-    String s = "";
-
-    for (var symptom in symptomsList) {
-      s += "- ${symptom.name} (${symptom.level}. seviye)\n";
-    }
-
-    return s;
-  }
-
   Widget _displayReportButton(BuildContext context, String reportId) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
-        vertical: 25.0,
+        vertical: 5.0,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -177,27 +250,28 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   builder: (context) {
                     return ChangeNotifierProvider(
                       create: (context) => ReportDetailsPageViewModel(),
-                      child: ReportDetailsPage(reportId: reportId, isPageView: false),
+                      child: ReportDetailsPage(
+                          reportId: reportId, isPageView: false),
                       builder: (context, child) {
                         return child!;
                       },
                     );
                   });
             },
-            color: SepColors.primaryColor,
-            child: Row(
+            color: Colors.white,
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 FaIcon(
                   FontAwesomeIcons.fileCircleCheck,
-                  color: Colors.white,
-                  size: 20.0,
+                  color: Colors.red,
+                  size: 15.0,
                 ),
                 SizedBox(width: 10),
                 Text(
                   "Raporu Görüntüle",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.red,
                   ),
                 ),
               ],

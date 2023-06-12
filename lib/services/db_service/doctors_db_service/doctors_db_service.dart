@@ -71,7 +71,7 @@ class DoctorsDbService extends DoctorsDbServiceBase {
       }
 
       for (String time in busyTimesList) {
-        busyTimes.add(DateTime.parse(time));
+        busyTimes.add(DateTime.parse(time).toLocal());
       }
 
       return busyTimes;

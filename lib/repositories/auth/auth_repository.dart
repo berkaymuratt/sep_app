@@ -9,11 +9,6 @@ class AuthRepository extends AuthServiceBase {
   final AuthService _service = locator<AuthService>();
 
   @override
-  Future<DoctorModel> loginAsDoctor(String userId, String password) {
-    return _service.loginAsDoctor(userId, password);
-  }
-
-  @override
   Future<PatientModel> loginAsPatient(String userId, String password) {
     return _service.loginAsPatient(userId, password);
   }

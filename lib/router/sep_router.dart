@@ -9,8 +9,13 @@ import 'package:sep_app/app/pages/create_appointment_page/create_appointment_pag
 import 'package:sep_app/app/pages/create_appointment_page/create_appointment_page_view_model.dart';
 import 'package:sep_app/app/pages/doctor_info_page/doctor_info_page.dart';
 import 'package:sep_app/app/pages/doctor_info_page/doctor_info_page_view_model.dart';
+import 'package:sep_app/app/pages/fqa_page/faq_page.dart';
+import 'package:sep_app/app/pages/fqa_page/faq_page_view_model.dart';
 import 'package:sep_app/app/pages/home_page/home_page.dart';
 import 'package:sep_app/app/pages/landing_page/landing_page.dart';
+import 'package:sep_app/app/pages/login_page/login_page.dart';
+import 'package:sep_app/app/pages/profile_page/profile_page.dart';
+import 'package:sep_app/app/pages/profile_page/profile_page_view_model.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page.dart';
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
 import 'package:sep_app/app/pages/reports_page/reports_page.dart';
@@ -24,6 +29,7 @@ final GoRouter router = GoRouter(
         return const LandingPage();
       },
     ),
+    _loginRoute(),
     GoRoute(
         path: '/home',
         pageBuilder: (context, state) {
@@ -34,6 +40,8 @@ final GoRouter router = GoRouter(
           _myAppointmentsRoutes(),
           _myReportsRoutes(),
           _createAppointmentRoutes(),
+          _profileRoute(),
+          _faqRoute(),
         ]),
   ],
 );
@@ -140,6 +148,47 @@ GoRoute _createAppointmentRoutes() {
           child: CreateAppointmentPage(),
         ),
       );
+    },
+  );
+}
+
+GoRoute _profileRoute() {
+  return GoRoute(
+    path: 'profile',
+    pageBuilder: (context, state) {
+      return _byFadeTransition(
+        context,
+        state,
+        ChangeNotifierProvider(
+          create: (context) => ProfilePageViewModel(),
+          child: const ProfilePage(),
+        ),
+      );
+    },
+  );
+}
+
+GoRoute _faqRoute() {
+  return GoRoute(
+    path: 'faq',
+    pageBuilder: (context, state) {
+      return _byFadeTransition(
+        context,
+        state,
+        ChangeNotifierProvider(
+          create: (context) => FaqPageViewModel(),
+          child: const FaqPage(),
+        ),
+      );
+    },
+  );
+}
+
+GoRoute _loginRoute() {
+  return GoRoute(
+    path: "/login",
+    pageBuilder: (context, state) {
+      return _byFadeTransition(context, state, LoginPage());
     },
   );
 }

@@ -75,7 +75,7 @@ class SelectDateModalViewModel extends ViewModelBase {
     bool isTimeAvailable = true;
 
     for (var time in busyTimes) {
-      if (time.toIso8601String() == "${date.toIso8601String()}Z") {
+      if (time.toIso8601String() == date.toIso8601String()) {
         return false;
       }
     }

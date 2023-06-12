@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
 import 'package:sep_app/app/shared/sep_app_scaffold/drawer_link.dart';
@@ -54,30 +55,35 @@ Widget _profileSection(BuildContext context) {
   final viewModel = context.read<AuthViewModel>();
   final user = viewModel.patientUser!;
 
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-    padding: const EdgeInsets.all(5.0),
-    decoration: const BoxDecoration(
-        border: Border(
-      bottom: BorderSide(
-        color: Colors.grey,
-      ),
-    )),
-    child: Row(
-      children: [
-        Icon(
-          Icons.account_circle,
-          color: SepColors.primaryColor,
-          size: 50,
+  return GestureDetector(
+    onTap: () {
+      context.go("/home/profile");
+    },
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+      padding: const EdgeInsets.all(5.0),
+      decoration: const BoxDecoration(
+          border: Border(
+        bottom: BorderSide(
+          color: Colors.grey,
         ),
-        const SizedBox(width: 10),
-        Text(
-          "${user.patientInfo!.name} ${user.patientInfo!.surname}",
-          style: const TextStyle(
-            fontSize: 18,
+      )),
+      child: Row(
+        children: [
+          Icon(
+            Icons.account_circle,
+            color: SepColors.primaryColor,
+            size: 50,
           ),
-        ),
-      ],
+          const SizedBox(width: 10),
+          Text(
+            "${user.patientInfo!.name} ${user.patientInfo!.surname}",
+            style: const TextStyle(
+              fontSize: 18,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
@@ -86,15 +92,15 @@ Widget _menuSection(BuildContext context) {
   return SafeArea(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: const [
-        DrawerLink(
-            title: "Ayarlar", prefixIcon: Icons.settings, path: "/settings"),
+      children: [
         DrawerLink(
             title: "Sıkça Sorulan Sorular",
             prefixIcon: Icons.question_mark_sharp,
-            path: "/faq"),
+            path: "/home/faq"),
         DrawerLink(
-            title: "Çıkış Yap", prefixIcon: Icons.logout, path: "/login"),
+            title: "Çıkış Yap", prefixIcon: Icons.logout, path: "/login", onPressed: () {
+              context.read<AuthViewModel>().signOut();
+        }),
       ],
     ),
   );

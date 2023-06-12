@@ -47,7 +47,7 @@ class ReportModel {
       patientNote: json['patient_note'],
       doctorFeedback: json['doctor_feedback'],
       possibleDiseases: diseasesList,
-      createdAt: DateTime.parse(json['created_at']),
+      createdAt: DateTime.parse(json['created_at']).toLocal(),
     );
   }
 
@@ -72,9 +72,9 @@ class ReportModel {
       "patient_note": patientNote,
       "doctor_feedback": doctorFeedback,
       "possible_diseases": diseasesJSON,
-      "created_at": createdAt.toIso8601String().contains("Z")
-          ? createdAt.toIso8601String()
-          : "${createdAt.toIso8601String()}Z",
+      "created_at": createdAt.toUtc().toIso8601String().contains("Z")
+          ? createdAt.toUtc().toIso8601String()
+          : "${createdAt.toUtc().toIso8601String()}Z",
     };
   }
 }

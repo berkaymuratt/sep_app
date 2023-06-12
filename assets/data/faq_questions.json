@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "SEP Nedir ?",
+      "answer": "SEP, adını İngilizce dilindeki 'Symptom Evaluation and Pre-Assessment' teriminin kısaltmasından alıyor. Bu uygulama sayesinde kullanıcılar aile hekimlerinden randevu almasını sağlayan ve doktorların da hastanın hastalığının belirlenmesini hızlandıran ve kolaylaştıran bir sistemdir. SEP mobil uygulaması ise sadece randevu alacak hastalar için olup, web uygulaması olan SEP yalnızca doktorlar içindir."
+    },
+    {
+      "question": "Nasıl Randevu Alabilirim ?",
+      "answer": "Ana sayfadaki 'Randevu Al' bölümünden doktorunuzun uygun olduğu tarihler arasından seçim yapıp, semptomlarınızı ekleyip, son olarak eklemek istediğiniz bir şey varsa açıklama alanına doktorunuz için istediğiniz bilgiyi notunuzda belirtebilirsiniz."
+    },
+    {
+      "question": "Raporlarımı Nasıl Görüntüleyebilirim ?",
+      "answer": "Ana sayfadaki 'Raporlarım' sayfasından veya herhangi bir raporun detay sayfasındaki 'Raporu Görüntüle' seçeneğinden raporunuzu görüntüleyebilirsiniz."
+    },
+    {
+      "question": "Randevumun Detaylarını Nasıl Görüntüleyebilirim ?",
+      "answer": "Ana sayfadaki 'Randevularım' sayfasında listelenen randevularınızdan istediğiniz üstüne basarak ilgili randevuyu görüntüleyebilirsiniz."
+    },
+    {
+      "question": "Doktorumun Geri Dönütünü Nasıl Görebilirim ?",
+      "answer": "Doktorların geri dönütleri randevunuz sonucu oluşan raporlara eklenir. Eğer doktorunuz geri dönüt eklemiş ise ilgili raporun detay sayfasında görebilirsiniz."
+    },
+    {
+      "question": "Aile Hekimim Olan Doktorumun Bilgilerini Nereden Görebilirim ?",
+      "answer": "Aile Hekiminize ait bilgileri Ana Sayfadaki 'Doktorum' bölümünden görüntüleyebilirsiniz."
+    },
+    {
+      "question": "Oluşturuduğum Randevuyu Nasıl İptal Edebilirim ?",
+      "answer": "İptal etmek istediğiniz randevuyu ilgili randevunun detay sayfasından iptal edebilirsiniz."
+    },
+    {
+      "question": "Gün İçinde Randevum Olup Olmadığını Nereden Öğrenebilirim ?",
+      "answer": "Ana Sayfadaki 'Randevularım' sekmesinde listelenen randevulardan eğer tarihi yeşil renkli yazılmış ise ilgili randevu içersinde bulunduğunuz gün içinde demektir ?"
+    }
+  ]
+}

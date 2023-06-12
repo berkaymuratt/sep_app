@@ -27,9 +27,10 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const SepAppScaffold(
-      child: Center(
-        child: SepLoader(),
+    return const Scaffold(
+      backgroundColor: Colors.redAccent,
+      body: Center(
+        child: CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
