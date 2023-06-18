@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sep_app/app/pages/profile_page/profile_page_view_model.dart';
 import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
+import 'package:sep_app/app/shared/sep_toast_messages.dart';
 import 'package:sep_app/app/shared/view_models/auth_view_model.dart';
+import 'package:sep_app/models/users/patient_model.dart';
 import 'package:sep_app/models/users/user_info/patient_info_model.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,45 +16,59 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late TextEditingController nameController;
+  late TextEditingController surnameController;
+  late TextEditingController genderController;
+  late TextEditingController ageController;
+  late TextEditingController heightController;
+  late TextEditingController weightController;
+  late TextEditingController telephoneController;
+  late TextEditingController addressController;
+
   @override
   Widget build(BuildContext context) {
     PatientInfoModel patientInfo =
         context.read<AuthViewModel>().patientUser!.patientInfo!;
 
+    final viewModel = context.watch<ProfilePageViewModel>();
+
     return SepAppScaffold(
-      child: ListView(
-        children: [
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _userIcon(),
-            ],
-          ),
-          _inputs(patientInfo),
-          _updatebutton(context),
-        ],
-      ),
+      child: Stack(children: [
+        ListView(
+          children: [
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _userIcon(),
+              ],
+            ),
+            _inputs(patientInfo),
+            _updateButton(context),
+          ],
+        ),
+        viewModel.isStateLoading
+            ? Container(
+          color: Colors.black26,
+          child: const Center(
+              child: CircularProgressIndicator(color: Colors.white)),
+        )
+            : Container(),
+      ]),
     );
   }
 
   Widget _inputs(PatientInfoModel patientInfo) {
-    TextEditingController nameController =
-        TextEditingController(text: patientInfo.name);
-    TextEditingController surnameController =
-        TextEditingController(text: patientInfo.surname);
-    TextEditingController genderController =
-        TextEditingController(text: patientInfo.gender);
-    TextEditingController ageController =
-        TextEditingController(text: patientInfo.age.toString());
-    TextEditingController heightController =
+    nameController = TextEditingController(text: patientInfo.name);
+    surnameController = TextEditingController(text: patientInfo.surname);
+    genderController = TextEditingController(text: patientInfo.gender);
+    ageController = TextEditingController(text: patientInfo.age.toString());
+    heightController =
         TextEditingController(text: patientInfo.height.toString());
-    TextEditingController weightController =
+    weightController =
         TextEditingController(text: patientInfo.weight.toString());
-    TextEditingController telephoneController =
-        TextEditingController(text: patientInfo.telephone);
-    TextEditingController addressController =
-        TextEditingController(text: patientInfo.address);
+    telephoneController = TextEditingController(text: patientInfo.telephone);
+    addressController = TextEditingController(text: patientInfo.address);
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -166,14 +183,14 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _updatebutton(BuildContext context) {
+  Widget _updateButton(BuildContext context) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: MaterialButton(
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () => _updateUserInfo(context),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -192,5 +209,31 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ],
     );
+  }
+
+  void _updateUserInfo(BuildContext context) {
+    final PatientModel user = context.read<AuthViewModel>().patientUser!;
+
+    user.patientInfo = PatientInfoModel(
+      name: nameController.text,
+      surname: surnameController.text,
+      telephone: telephoneController.text,
+      address: addressController.text,
+      gender: genderController.text,
+      age: int.parse(ageController.text),
+      height: int.parse(heightController.text),
+      weight: double.parse(weightController.text),
+    );
+
+    context
+        .read<ProfilePageViewModel>()
+        .updatePatient(user)
+        .then((isSuccessful) {
+      if (isSuccessful) {
+        displaySuccessMessage(context, content: "Başarıyla güncellendi");
+      } else {
+        displayErrorMessage(context, content: "Bir hata oluştu");
+      }
+    });
   }
 }
