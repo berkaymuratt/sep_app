@@ -27,4 +27,9 @@ class AppointmentsRepository extends AppointmentsDbServiceBase {
     return _service.createAppointment(appointment);
   }
 
+  @override
+  Future<bool> cancelAppointment(String appointmentId) {
+    return _service.cancelAppointment(appointmentId);
+  }
+
 }

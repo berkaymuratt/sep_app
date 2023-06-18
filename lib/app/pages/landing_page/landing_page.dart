@@ -17,11 +17,14 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-    navigateToHome(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // TODO: remove here
-      context.read<AuthViewModel>().loginAsPatient("12345678911", "ayse123");
-      // TODO: ---------------
+      context.read<AuthViewModel>().loginAsPatient("12345678911", "ayse123").then((patient) {
+        if (patient == null) {
+          context.go("/server-not-available");
+        } else {
+          navigateToHome(context);
+        }
+      });
     });
   }
 
@@ -36,7 +39,7 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   void navigateToHome(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       context.go("/home");
     });
   }

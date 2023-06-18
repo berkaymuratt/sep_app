@@ -5,4 +5,5 @@ abstract class AppointmentsDbServiceBase {
   Future<List<AppointmentModel>> getAppointmentsByPatientId(String patientId);
   Future<List<AppointmentModel>> getAppointmentsByDoctorId(String doctorId);
   Future<bool> createAppointment(AppointmentModel appointment);
+  Future<bool> cancelAppointment(String appointmentId);
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:sep_app/app/shared/modals/sign_up_modal/sign_up_modal.dart';
+import 'package:sep_app/app/shared/modals/sign_up_modal/sign_up_modal_view_model.dart';
 import 'package:sep_app/app/shared/sep_toast_messages.dart';
 import 'package:sep_app/app/shared/view_models/auth_view_model.dart';
 import 'package:sep_app/app/shared/widgets/sep_divider/sep_divider.dart';
@@ -156,7 +159,7 @@ class LoginPage extends StatelessWidget {
   MaterialButton _registerButton(BuildContext context) {
     return MaterialButton(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-      onPressed: () => _signIn(context),
+      onPressed: () => _signUp(context),
       color: Colors.grey.shade100,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -207,7 +210,6 @@ class LoginPage extends StatelessWidget {
 
     authViewModel.loginAsPatient(userId, password).then((patient) {
       if (patient != null) {
-        _saveLoginInfoToStorage(userId, password);
         context.go("/home");
       } else {
         displayErrorMessage(context, content: "Hatalı Giriş");
@@ -215,16 +217,18 @@ class LoginPage extends StatelessWidget {
     });
   }
 
-  void _saveLoginInfoToStorage(String userId, String password) async {
-
-   /* const storage = FlutterSecureStorage();
-
-    Map<String, String> allValues = await storage.readAll();
-
-    print("Existing user_id: ${allValues['user_id']}");
-    print("Existing user_password: ${allValues['user_password']}");
-
-    await storage.write(key: "user_id", value: userId);
-    await storage.write(key: "user_password", value: password);*/
+  void _signUp(BuildContext context) {
+    showBarModalBottomSheet(
+        context: context,
+        builder: (newContext) {
+          return ChangeNotifierProvider(
+            create: (context) => SignUpModalViewModel(),
+            child: const SignUpModal(),
+            builder: (context, child) {
+              return child!;
+            },
+          );
+        });
   }
+
 }

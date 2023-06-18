@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:sep_app/app/pages/report_details_page/dart/report_details_page.d
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
 import 'package:sep_app/app/shared/sep_colors.dart';
 import 'package:sep_app/app/shared/sep_app_scaffold/sep_app_scaffold.dart';
+import 'package:sep_app/app/shared/sep_toast_messages.dart';
 import 'package:sep_app/app/shared/widgets/sep_divider/sep_divider.dart';
 import 'package:sep_app/app/shared/widgets/sep_loader/sep_loader.dart';
 import 'package:sep_app/models/appointment_model.dart';
@@ -66,7 +68,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
             Column(
               children: [
                 _displayReportButton(context, appointment.reportId),
-                _cancelAppointmentButton(context, appointment.reportId),
+                _cancelAppointmentButton(context),
               ],
             ),
           ],
@@ -110,7 +112,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
       _doctorInfoCard(appointment),
       _timeInfoCard(appointment),
       _symptomInfoCard(appointment),
-      _patientNoteCard(appointment),
+      appointment.patientNote.isNotEmpty ? _patientNoteCard(appointment) : Container(),
     ];
   }
 
@@ -197,7 +199,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
     return symptoms;
   }
 
-  Widget _cancelAppointmentButton(BuildContext context, String reportId) {
+  Widget _cancelAppointmentButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
@@ -208,7 +210,17 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<AppointmentDetailsPageViewModel>().cancelAppointment(widget.appointmentId).then((isSuccessful) {
+                if (isSuccessful) {
+                  context.pop();
+                  context.pop();
+                  displaySuccessMessage(context, content: "Randevunuz başarıyla iptal edilmiştir");
+                } else {
+                  displayErrorMessage(context, content: "Hata oluştu");
+                }
+              });
+            },
             color: SepColors.primaryColor,
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,

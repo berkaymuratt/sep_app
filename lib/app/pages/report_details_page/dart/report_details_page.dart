@@ -93,7 +93,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
       _timeInfoCard(report),
       _symptomInfoCard(report),
       _diseasesInfoCard(report),
-      _patientNoteCard(report),
+      report.patientNote.isNotEmpty ? _patientNoteCard(report) : Container(),
       report.doctorFeedback.isNotEmpty ? _doctorFeedback(report) : Container(),
       const SizedBox(height: 15.0),
     ];

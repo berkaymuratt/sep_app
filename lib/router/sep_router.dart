@@ -20,6 +20,7 @@ import 'package:sep_app/app/pages/report_details_page/dart/report_details_page.d
 import 'package:sep_app/app/pages/report_details_page/dart/report_details_page_view_model.dart';
 import 'package:sep_app/app/pages/reports_page/reports_page.dart';
 import 'package:sep_app/app/pages/reports_page/reports_page_view_model.dart';
+import 'package:sep_app/app/pages/server_not_available_page/server_not_available_page.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -27,6 +28,12 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return const LandingPage();
+      },
+    ),
+    GoRoute(
+      path: '/server-not-available',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ServerNotAvailablePage();
       },
     ),
     _loginRoute(),

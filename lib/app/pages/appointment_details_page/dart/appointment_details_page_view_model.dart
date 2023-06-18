@@ -24,6 +24,21 @@ class AppointmentDetailsPageViewModel extends ViewModelBase {
     }
   }
 
+  Future<bool> cancelAppointment(String appointmentId) async {
+    try {
+      state = ViewState.BUSY;
+      final bool result = await _appointmentsRepository.cancelAppointment(appointmentId);
+      return result;
+    } catch (e) {
+      appointment = null;
+      debugPrint(e.toString());
+      errorMsg = e.toString();
+      return false;
+    } finally {
+      state = ViewState.IDLE;
+    }
+  }
+
   @override
   bool get isStateLoading =>  appointment == null || super.isStateLoading;
 }
